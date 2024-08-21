@@ -187,15 +187,17 @@ class elementary(ExtensionBase):
 
         Args:
             profiles-dir: Path to dbt profiles directory
-            file-path: Path to report
+            slack-token: Slack token for channel
+            slack-channel-name: Name of the slack channel
 
         """
         command_name = "monitor"
         try:
             self.elementary_invoker.run_and_log(
                 "monitor",
+                f"--slack-token={self.slack_token}",
+                f"--slack-channel-name={self.slack_channel_name}",
                 f"--profiles-dir={self.dbt_profiles_dir}",
-                f"--file-path={self.file_path}",
             )
         except subprocess.CalledProcessError as err:
             log_subprocess_error(
@@ -205,7 +207,8 @@ class elementary(ExtensionBase):
 
         log.info(
             f"elementary {command_name}",
-            file_path=self.file_path,
+            slack_token=self.slack_token,
+            slack_channel_name=self.slack_channel_name,
             dbt_profiles_dir=self.dbt_profiles_dir,
         )
 
