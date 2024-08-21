@@ -182,6 +182,33 @@ class elementary(ExtensionBase):
             dbt_profiles_dir=self.dbt_profiles_dir,
         )
 
+    def monitor(self) -> None:
+        """Read from the test results table and send new alerts
+
+        Args:
+            profiles-dir: Path to dbt profiles directory
+            file-path: Path to report
+
+        """
+        command_name = "monitor"
+        try:
+            self.elementary_invoker.run_and_log(
+                "monitor",
+                f"--profiles-dir={self.dbt_profiles_dir}",
+                f"--file-path={self.file_path}",
+            )
+        except subprocess.CalledProcessError as err:
+            log_subprocess_error(
+                f"elementary {command_name}", err, "elementary invocation failed"
+            )
+            sys.exit(err.returncode)
+
+        log.info(
+            f"elementary {command_name}",
+            file_path=self.file_path,
+            dbt_profiles_dir=self.dbt_profiles_dir,
+        )
+
     def monitor_report(self) -> None:
         """Generates a report through the report.html parameter
 
