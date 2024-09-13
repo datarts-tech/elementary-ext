@@ -32,6 +32,7 @@ class elementary(ExtensionBase):
         self.dbt_profiles_dir = Path(
             os.getenv("ELEMENTARY_PROFILES_DIR", self.dbt_project_dir / "profiles")
         )
+        self.elementary_profile_target = os.getenv("ELEMENTARY_PROFILE_TARGET", None)
         self.config_dir_path = os.getenv("ELEMENTARY_CONFIG_DIR_PATH", None)
         self.dbt_ext_type = os.getenv("DBT_EXT_TYPE", "bigquery")
         self.file_path = Path(os.getenv("ELEMENTARY_FILE_PATH", "utilities/elementary/report.html"))
@@ -198,6 +199,7 @@ class elementary(ExtensionBase):
                 f"--slack-token={self.slack_token}",
                 f"--slack-channel-name={self.slack_channel_name}",
                 f"--profiles-dir={self.dbt_profiles_dir}",
+                f"--profile-target={self.elementary_profile_target}", 
             )
         except subprocess.CalledProcessError as err:
             log_subprocess_error(
@@ -207,9 +209,9 @@ class elementary(ExtensionBase):
 
         log.info(
             f"elementary {command_name}",
-            slack_token=self.slack_token,
             slack_channel_name=self.slack_channel_name,
             dbt_profiles_dir=self.dbt_profiles_dir,
+            elementary_profile_target=self.elementary_profile_target,
         )
 
     def monitor_report(self) -> None:
@@ -250,14 +252,6 @@ class elementary(ExtensionBase):
 
         """
         command_name = "monitor send report"
-
-        log.info(
-            f"elementary {command_name}",
-            slack_token=self.slack_token,
-            slack_channel_name=self.slack_channel_name,
-            dbt_profiles_dir=self.dbt_profiles_dir,
-        )
-
         try:
             self.elementary_invoker.run_and_log(
                 "monitor",
@@ -274,7 +268,6 @@ class elementary(ExtensionBase):
 
         log.info(
             f"elementary {command_name}",
-            slack_token=self.slack_token,
             slack_channel_name=self.slack_channel_name,
             dbt_profiles_dir=self.dbt_profiles_dir,
         )
