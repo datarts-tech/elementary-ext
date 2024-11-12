@@ -179,14 +179,14 @@ class elementary(ExtensionBase):
             dbt_profiles_dir=self.dbt_profiles_dir,
         )
 
-    def upload_source_freshness(self) -> None:
+    def upload(self) -> None:
         """Collect source-freshness results, just like any other test results.
 
         Args:
             profiles-dir: Path to dbt profiles directory
 
         """
-        command_name = "upload_source_freshness"
+        command_name = "upload"
         try:
             self.elementary_invoker.run_and_log(
                 "run-operation",

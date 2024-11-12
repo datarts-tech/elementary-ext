@@ -38,13 +38,13 @@ def initialize(
         sys.exit(1)
 
 @app.command()
-def upload_source_freshness(ctx: typer.Context) -> None:
+def upload(ctx: typer.Context) -> None:
     """Collect source-freshness results, just like any other test results."""
     try:
-        ext.upload_source_freshness()
+        ext.upload()
     except Exception:
         log.exception(
-            "upload_source_freshness failed with uncaught exception, please report to maintainer"
+            "upload failed with uncaught exception, please report to maintainer"
         )
         sys.exit(1)
 
