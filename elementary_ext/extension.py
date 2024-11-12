@@ -57,8 +57,6 @@ class elementary(ExtensionBase):
         )
         self.elementary_invoker = Invoker(self.elementary_bin, cwd=self.dbt_profiles_dir)
 
-
-
     def pre_invoke(self, invoke_name: str | None, *invoke_args: Any) -> None:
         """Pre-invoke hook.
         Runs `dbt deps` to ensure dependencies are up-to-date on every invocation.
@@ -138,8 +136,6 @@ class elementary(ExtensionBase):
             )
             sys.exit(err.returncode)
 
-
-
     def initialize(self, force: bool = False) -> None:
         """Initialize the extension.
         Args:
@@ -190,7 +186,7 @@ class elementary(ExtensionBase):
             profiles-dir: Path to dbt profiles directory
 
         """
-        command_name = "upload_source_freshness"
+        command_name = "run-operation upload-source-freshness"
         try:
             self.elementary_invoker.run_and_log(
                 "run-operation",
