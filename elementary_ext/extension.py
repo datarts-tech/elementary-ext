@@ -190,7 +190,7 @@ class elementary(ExtensionBase):
         try:
             self.elementary_invoker.run_and_log(
                 "run-operation",
-                "upload-source-freshness"
+                "upload-source-freshness",
                 f"--profiles-dir={self.dbt_profiles_dir}",
                 f"--profile-target={self.elementary_profile_target}", 
             )
