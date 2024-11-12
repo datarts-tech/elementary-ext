@@ -38,13 +38,13 @@ def initialize(
         sys.exit(1)
 
 @app.command()
-def run_operation(ctx: typer.Context) -> None:
+def freshness(ctx: typer.Context) -> None:
     """Collect source-freshness results, just like any other test results."""
     try:
-        ext.run_operation()
+        ext.freshness()
     except Exception:
         log.exception(
-            "run_operation failed with uncaught exception, please report to maintainer"
+            "freshness failed with uncaught exception, please report to maintainer"
         )
         sys.exit(1)
 

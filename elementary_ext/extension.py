@@ -179,7 +179,7 @@ class elementary(ExtensionBase):
             dbt_profiles_dir=self.dbt_profiles_dir,
         )
 
-    def run_operation(self) -> None:
+    def freshness(self) -> None:
         """Collect source-freshness results, just like any other test results.
 
         Args:
