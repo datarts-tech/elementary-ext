@@ -186,7 +186,7 @@ class elementary(ExtensionBase):
             profiles-dir: Path to dbt profiles directory
 
         """
-        command_name = "run-operation upload-source-freshness"
+        command_name = "upload_source_freshness"
         try:
             self.elementary_invoker.run_and_log(
                 "run-operation",
