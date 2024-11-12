@@ -183,6 +183,33 @@ class elementary(ExtensionBase):
             dbt_profiles_dir=self.dbt_profiles_dir,
         )
 
+    def upload_source_freshness(self) -> None:
+        """Collect source-freshness results, just like any other test results.
+
+        Args:
+            profiles-dir: Path to dbt profiles directory
+
+        """
+        command_name = "upload_source_freshness"
+        try:
+            self.elementary_invoker.run_and_log(
+                "run-operation",
+                "upload-source-freshness"
+                f"--profiles-dir={self.dbt_profiles_dir}",
+                f"--profile-target={self.elementary_profile_target}", 
+            )
+        except subprocess.CalledProcessError as err:
+            log_subprocess_error(
+                f"elementary {command_name}", err, "elementary invocation failed"
+            )
+            sys.exit(err.returncode)
+
+        log.info(
+            f"elementary {command_name}",
+            dbt_profiles_dir=self.dbt_profiles_dir,
+            elementary_profile_target=self.elementary_profile_target,
+        )
+
     def monitor(self) -> None:
         """Read from the test results table and send new alerts
 
